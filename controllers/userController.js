@@ -38,10 +38,10 @@ const login = (req, res, next) => {
         name: user.name
       };
 
-      const token = jwt.sign(payload, superSecretKey, { expiresIn: 60 });
+      const token = jwt.sign(payload, superSecretKey, { expiresIn: '1h' });
       res.status(200).send({
         token,
-        message: 'User found & logged in'
+        message: 'Log in successful.'
       });
     } catch (err) {
       console.log(err);

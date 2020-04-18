@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const userRoute = require('./routes/users');
+const noteRoute = require('./routes/notes');
 require('dotenv').config();
 
 const db = require('./models');
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use('/api/users', userRoute);
+app.use('/api/notes', noteRoute);
 
 db.sequelize.sync().then(() => {
   app.listen(process.env.PORT, () => {

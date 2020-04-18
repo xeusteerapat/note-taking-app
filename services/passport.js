@@ -81,7 +81,7 @@ passport.use(
               message: 'Username or password is not correct.'
             });
           }
-          console.log('Login successful');
+          console.log('User found and login successful');
           return done(null, user);
         });
       } catch (err) {
