@@ -18,6 +18,22 @@ const getAllNotes = async (req, res) => {
   res.status(200).send(allNotes);
 };
 
+const getSingleNote = async (req, res) => {
+  const targetId = req.params.id;
+  const note = await Note.findOne({
+    where: {
+      id: targetId,
+      user_id: req.user.id
+    }
+  });
+
+  if (!note) {
+    res.status(404).send('Note not found');
+  }
+
+  res.status(200).send(note);
+};
+
 const updateNote = async (req, res) => {
   const targetId = req.params.id;
   const { title, text } = req.body;
@@ -61,6 +77,7 @@ const deleteNote = async (req, res) => {
 module.exports = {
   createNote,
   getAllNotes,
+  getSingleNote,
   updateNote,
   deleteNote
 };
