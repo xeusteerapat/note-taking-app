@@ -34,13 +34,13 @@ const login = (req, res, next) => {
       const superSecretKey = process.env.SECRET_OR_KEY;
       const payload = {
         id: user.id,
-        name: user.name,
+        name: user.name
       };
 
       const token = jwt.sign(payload, superSecretKey, { expiresIn: '1h' });
       res.status(200).send({
         token,
-        message: 'Log in successful.',
+        message: 'Log in successful.'
       });
     } catch (e) {
       console.log(e);

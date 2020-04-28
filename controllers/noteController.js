@@ -6,7 +6,7 @@ const createNote = async (req, res) => {
   const note = await Note.create({
     title,
     text,
-    user_id: req.user.id,
+    user_id: req.user.id
   });
 
   res.status(201).send(note);
@@ -23,8 +23,8 @@ const getSingleNote = async (req, res) => {
   const note = await Note.findOne({
     where: {
       id: targetId,
-      user_id: req.user.id,
-    },
+      user_id: req.user.id
+    }
   });
 
   if (!note) {
@@ -41,8 +41,8 @@ const updateNote = async (req, res) => {
   const targetNote = await Note.findOne({
     where: {
       id: targetId,
-      user_id: req.user.id,
-    },
+      user_id: req.user.id
+    }
   });
 
   if (!targetNote) {
@@ -50,7 +50,7 @@ const updateNote = async (req, res) => {
   } else {
     await targetNote.update({
       title,
-      text,
+      text
     });
     res.status(200).send({ message: 'Note has been updated.' });
   }
@@ -62,8 +62,8 @@ const deleteNote = async (req, res) => {
   const targetNote = await Note.findOne({
     where: {
       id: targetId,
-      user_id: req.user.id,
-    },
+      user_id: req.user.id
+    }
   });
 
   if (!targetNote) {
@@ -79,5 +79,5 @@ module.exports = {
   getAllNotes,
   getSingleNote,
   updateNote,
-  deleteNote,
+  deleteNote
 };
