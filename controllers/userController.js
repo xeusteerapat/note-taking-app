@@ -6,18 +6,17 @@ const register = (req, res, next) => {
   passport.authenticate('register', async (err, user, info) => {
     try {
       if (err) {
-        console.log(err);
+        console.error(err);
       }
 
       if (info) {
-        console.log(info);
         res.status(400).send(info.message);
       } else {
         await user.update({ name: req.body.name });
         res.status(200).send({ message: 'User created' });
       }
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
     }
   })(req, res, next);
 };
@@ -35,16 +34,16 @@ const login = (req, res, next) => {
       const superSecretKey = process.env.SECRET_OR_KEY;
       const payload = {
         id: user.id,
-        name: user.name
+        name: user.name,
       };
 
       const token = jwt.sign(payload, superSecretKey, { expiresIn: '1h' });
       res.status(200).send({
         token,
-        message: 'Log in successful.'
+        message: 'Log in successful.',
       });
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      console.log(e);
     }
   })(req, res, next);
 };
