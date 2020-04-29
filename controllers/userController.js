@@ -34,7 +34,7 @@ const login = (req, res, next) => {
       const superSecretKey = process.env.SECRET_OR_KEY;
       const payload = {
         id: user.id,
-        name: user.name
+        name: user.email
       };
 
       const token = jwt.sign(payload, superSecretKey, { expiresIn: '1h' });

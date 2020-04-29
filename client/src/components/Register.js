@@ -18,8 +18,8 @@ const Register = () => {
         </h2>
         <FormControl w="450px" mx="auto">
           <Stack spacing={2}>
-            <FormLabel htmlFor="username">Username</FormLabel>
-            <Input placeholder="Enter username" border="none" />
+            <FormLabel htmlFor="name">Name</FormLabel>
+            <Input placeholder="Enter your name" border="none" />
             <FormLabel htmlFor="email">Email address</FormLabel>
             <Input placeholder="Enter email" border="none" />
             <FormLabel htmlFor="email">Password</FormLabel>

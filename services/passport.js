@@ -1,5 +1,5 @@
 const passport = require('passport');
-const localStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcryptjs');
@@ -18,19 +18,19 @@ const options = {
 // Register user
 passport.use(
   'register',
-  new localStrategy(
+  new LocalStrategy(
     {
-      usernameField: 'username',
+      usernameField: 'email',
       passwordField: 'password',
       session: false
     },
-    async (username, password, done) => {
+    async (email, password, done) => {
       try {
-        const existingUser = await User.findOne({ where: { username } });
+        const existingUser = await User.findOne({ where: { email } });
 
         if (existingUser) {
-          console.log('Username already taken.');
-          return done(null, false, { message: 'Username already taken.' });
+          console.log('Email already taken.');
+          return done(null, false, { message: 'Email already taken.' });
         }
 
         const salt = bcrypt.genSaltSync(Number(process.env.BCRYPT_SALT_ROUND));
@@ -38,9 +38,10 @@ passport.use(
         console.log(salt);
 
         const user = await User.create({
-          username,
+          email,
           password: hashedPassword
         });
+
         return done(null, user);
       } catch (err) {
         console.log(err);
@@ -53,20 +54,20 @@ passport.use(
 // User Login
 passport.use(
   'login',
-  new localStrategy(
+  new LocalStrategy(
     {
-      usernameField: 'username',
+      usernameField: 'email',
       passwordField: 'password',
       session: false
     },
-    async (username, password, done) => {
+    async (email, password, done) => {
       try {
-        const user = await User.findOne({ where: { username } });
+        const user = await User.findOne({ where: { email } });
 
         if (!user) {
-          console.log('Username not found');
+          console.log('Email not found');
           return done(null, false, {
-            message: 'Username or password is not correct.'
+            message: 'Email or password is not correct.'
           });
         }
 
@@ -78,7 +79,7 @@ passport.use(
           if (!isSuccess) {
             console.log('Password is not matched');
             return done(null, false, {
-              message: 'Username or password is not correct.'
+              message: 'Email or password is not correct.'
             });
           }
           console.log('User found and login successful');
@@ -101,7 +102,7 @@ passport.use(
     if (user) {
       done(null, user);
     } else {
-      done(null, error);
+      done(null, false);
     }
   })
 );

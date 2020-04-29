@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Note.associate = models => {
+  Note.associate = (models) => {
     Note.belongsTo(models.User, { foreignKey: 'user_id' });
   };
   return Note;

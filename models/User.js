@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING(100)
     },
-    username: {
+    email: {
       type: DataTypes.STRING(100),
       unique: true
     },
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  User.associate = models => {
+  User.associate = (models) => {
     User.hasMany(models.Note, { foreignKey: 'user_id' });
   };
 
