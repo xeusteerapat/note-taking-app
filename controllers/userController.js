@@ -1,51 +1,57 @@
-const passport = require('passport');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { User } = require('../models');
 require('dotenv').config();
 
-const register = (req, res, next) => {
-  passport.authenticate('register', async (err, user, info) => {
-    try {
-      if (err) {
-        console.error(err);
-      }
+const register = async (req, res) => {
+  const { name, email, password } = req.body;
 
-      if (info) {
-        res.status(400).send(info.message);
-      } else {
-        await user.update({ name: req.body.name });
-        res.status(200).send({ message: 'User created' });
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  })(req, res, next);
+  const user = await User.findOne({
+    where: { email }
+  });
+
+  if (user) {
+    res.status(400).send({
+      message: 'Email already taken'
+    });
+  } else {
+    const salt = bcrypt.genSaltSync(Number(process.env.BCRYPT_SALT_ROUND));
+    const hashPassword = bcrypt.hashSync(password, salt);
+
+    await User.create({
+      name,
+      email,
+      password: hashPassword
+    });
+
+    res.status(201).send({ message: 'User created' });
+  }
 };
 
-const login = (req, res, next) => {
-  passport.authenticate('login', async (err, user, info) => {
-    try {
-      if (err) {
-        console.log(err);
-      }
-      if (info) {
-        console.log(info);
-      }
+const login = async (req, res) => {
+  const { email, password } = req.body;
 
-      const superSecretKey = process.env.SECRET_OR_KEY;
+  const user = await User.findOne({ where: { email } });
+
+  if (!user) {
+    res.status(400).send({ message: 'Invalid email or password' });
+  } else {
+    const isSuccess = bcrypt.compareSync(password, user.password);
+
+    if (isSuccess) {
       const payload = {
         id: user.id,
-        name: user.email
+        name: user.name
       };
 
-      const token = jwt.sign(payload, superSecretKey, { expiresIn: '1h' });
-      res.status(200).send({
-        token,
-        message: 'Log in successful.'
+      const token = jwt.sign(payload, process.env.SECRET_OR_KEY, {
+        expiresIn: 3600
       });
-    } catch (e) {
-      console.log(e);
+      res.status(200).send({ token });
+    } else {
+      res.status(400).send({ message: 'Invalid email or password' });
     }
-  })(req, res, next);
+  }
 };
 
 module.exports = { register, login };
