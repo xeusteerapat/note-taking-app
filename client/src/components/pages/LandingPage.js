@@ -1,5 +1,5 @@
 import React from 'react';
-import NoteHero from '../../img/note_hero.svg';
+import NoteHeroLeft from '../../img/note_hero_left.svg';
 import NoteHeroRight from '../../img/note_hero_right.svg';
 
 const LandingPage = () => {
@@ -38,7 +38,7 @@ const LandingPage = () => {
         <section className="py-10">
           <div className="flex content-center flex-wrap">
             <div className="grid grid-cols-2 gap-4">
-              <img src={NoteHero} alt="" width="500px" className="center" />
+              <img src={NoteHeroLeft} alt="" width="500px" className="center" />
               <h1 className="text-4xl text-center text-blue-700">
                 Keep your team connected through writing
               </h1>
@@ -62,7 +62,7 @@ const LandingPage = () => {
             Join us today, no credit card require
           </h1>
           <div className="text-center">
-            <button className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+            <button className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Sign Up
             </button>
           </div>
