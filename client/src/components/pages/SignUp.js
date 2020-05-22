@@ -35,7 +35,7 @@ const SignUp = () => {
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
+              id="name"
               type="text"
               placeholder="Name"
               ref={register({ required: true })}
@@ -55,9 +55,12 @@ const SignUp = () => {
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
-              type="text"
+              type="email"
               placeholder="Enter your email"
-              ref={register({ required: true })}
+              ref={register({
+                required: true,
+                pattern: /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/
+              })}
               name="email"
             />
             {errors.name && (
