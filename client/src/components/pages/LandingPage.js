@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import NoteHeroLeft from '../../img/note_hero_left.svg';
 import NoteHeroRight from '../../img/note_hero_right.svg';
 
@@ -12,24 +13,24 @@ const LandingPage = () => {
         <header className="flex items-center justify-around px-4 py-3 bg-blue-500">
           <ul className="flex ">
             <li className="mr-6">
-              <a className="text-white hover:text-indigo-100" href="/">
+              <Link className="text-white hover:text-indigo-100" to="/">
                 What it's for
-              </a>
+              </Link>
             </li>
             <li className="mr-6">
-              <a className="text-white hover:text-indigo-100" href="/">
+              <Link className="text-white hover:text-indigo-100" to="/">
                 How it works
-              </a>
+              </Link>
             </li>
             <li className="mr-6">
-              <a className="text-white hover:text-indigo-100" href="/">
+              <Link className="text-white hover:text-indigo-100" to="/">
                 Templates
-              </a>
+              </Link>
             </li>
             <li className="mr-6">
-              <a className="text-white hover:text-indigo-100" href="/">
+              <Link className="text-white hover:text-indigo-100" to="/signup">
                 Get Started
-              </a>
+              </Link>
             </li>
           </ul>
         </header>

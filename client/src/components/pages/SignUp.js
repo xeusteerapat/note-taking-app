@@ -17,6 +17,7 @@ const SignUp = () => {
               id="username"
               type="text"
               placeholder="Name"
+              required
             />
           </div>
           <div className="mb-4">
@@ -31,6 +32,7 @@ const SignUp = () => {
               id="email"
               type="text"
               placeholder="Enter your email"
+              required
             />
           </div>
           <div className="mb-6">
@@ -45,6 +47,7 @@ const SignUp = () => {
               id="password"
               type="password"
               placeholder="Enter your password"
+              required
             />
           </div>
           <div className="flex items-center justify-around">
