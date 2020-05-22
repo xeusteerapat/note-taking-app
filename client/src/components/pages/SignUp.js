@@ -1,9 +1,23 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import axios from '../../utils/axios.config';
 
 const SignUp = () => {
-  const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data);
+  const { register, handleSubmit, errors, setValue } = useForm();
+  const onSubmit = async data => {
+    const { name, email, password } = data;
+
+    const body = {
+      name,
+      email,
+      password
+    };
+
+    await axios.post('/api/users/register', body);
+    setValue('name', '');
+    setValue('email', '');
+    setValue('password', '');
+  };
 
   return (
     <div className="flex items-center justify-around">
