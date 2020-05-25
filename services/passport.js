@@ -12,7 +12,7 @@ const options = {
   secretOrKey: process.env.SECRET_OR_KEY
 };
 
-// Register user
+// Login user
 passport.use(
   'jwt',
   new JWTStrategy(options, async (payload, done) => {

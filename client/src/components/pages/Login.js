@@ -2,23 +2,20 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from '../../utils/axios.config';
 
-const SignUp = () => {
+const Login = () => {
   const { register, handleSubmit, errors, setValue } = useForm();
   const onSubmit = async data => {
-    const { name, email, password } = data;
+    const { email, password } = data;
 
     const body = {
-      name,
       email,
       password
     };
 
     await axios.post('/api/users/register', body);
-    setValue('name', '');
     setValue('email', '');
     setValue('password', '');
   };
-
   return (
     <div className="flex items-center justify-around">
       <div className="w-full max-w-xs">
@@ -26,25 +23,6 @@ const SignUp = () => {
           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="name"
-              type="text"
-              placeholder="Name"
-              ref={register({ required: true })}
-              name="name"
-            />
-            {errors.name && (
-              <span className="text-red-500">This field is required</span>
-            )}
-          </div>
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -91,7 +69,7 @@ const SignUp = () => {
               className="bg-indigo-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Sign Up
+              Log In
             </button>
           </div>
         </form>
@@ -103,4 +81,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;
